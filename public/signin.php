@@ -37,8 +37,8 @@ if(isset($_POST['submit']))
 ?>
 
     <form action="" method="post" name="signin_form" class="form-signin">
-        <h4>Email address:</h4><input type="email" name="username" placeholder="e.g. john@mail.com">
-        <h4>Password:</h4><input type="password" name="password">
+        <h4>Email address:</h4><input type="email" name="username" placeholder="e.g. john@mail.com" required>
+        <h4>Password:</h4><input type="password" name="password" required>
         <br><br>
         <button name="submit" value="signin" class="button" type="submit">Sign in</button>
     </form>

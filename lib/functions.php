@@ -143,15 +143,21 @@ function add_user($username, $password)
     return $success;
 }
 
-function delete_user($username)
+function delete_user($username, $password)
 {
-    $pdo = get_connection();
+    $success = false;
+    if(check_password($username, $password)) {
+        $pdo = get_connection();
 
-    $query = 'DELETE FROM user WHERE username = :USER';
-    $statement = $pdo->prepare($query);
-    $statement->bindParam('USER', escape($username), PDO::PARAM_STR);
+        $query = 'DELETE FROM user WHERE username = :USER';
+        $statement = $pdo->prepare($query);
+        $statement->bindParam('USER', escape($username), PDO::PARAM_STR);
 
-    $statement->execute();
+        $statement->execute();
+        $success = true;
+    }
+
+    return $success;
 }
 
 function change_password($username, $password)

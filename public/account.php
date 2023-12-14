@@ -25,8 +25,8 @@
 
     <form action="" method="post" name="account-form" class="form-signin">
         <h4>Email address: <?php echo $_SESSION['username'];?></h4>
-        <h4>New password:</h4><input type="password" name="password">
-        <h4>Confirm password:</h4><input type="password" name="password2">
+        <h4>New password:</h4><input type="password" name="password" required>
+        <h4>Confirm password:</h4><input type="password" name="password2" required>
         <br><br>
         <button name="submit" value="change-password" class="button" type="submit">Change password</button>
     </form>
