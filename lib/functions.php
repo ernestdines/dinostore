@@ -70,12 +70,12 @@ function count_basket()
     return $basket_total;
 }
 
-function addtobasket($product_id)
+function addtobasket($product_id, $quantity = 1)
 {
     if(isset($_SESSION['basket'][$product_id]))
-        $_SESSION['basket'][$product_id]++;
+        $_SESSION['basket'][$product_id]+= $quantity;
     else
-        $_SESSION['basket'][$product_id] = 1;
+        $_SESSION['basket'][$product_id] = $quantity;
 }
 
 function update_basket($product_id, $quantity)
@@ -98,6 +98,21 @@ function check_password($username, $password)
     return $is_correct;
 }
 
+function user_exists($username)
+{
+    $pdo = get_connection();
+    $query = 'SELECT COUNT(*) FROM user WHERE username = :USER';
+    $statement = $pdo->prepare($query);
+    $statement->bindParam('USER', $username, PDO::PARAM_STR);
+    $statement->execute();
+    $result = $statement->fetch();
+    $exists = false;
+    if($result[0] > 0) {
+        $exists = true;
+    }
+    return $exists;
+}
+
 function escape($data) {
     $data = htmlspecialchars($data, ENT_QUOTES | ENT_SUBSTITUTE, "UTF-8");
     $data = trim($data);
@@ -107,19 +122,25 @@ function escape($data) {
 
 function add_user($username, $password)
 {
-    $pdo = get_connection();
+    $success = false;
+    if(!user_exists($username)) {
+        $pdo = get_connection();
 
-    $new_user = array(
-        "username" => escape($username),
-        "password" => escape($password)
-    );
+        $new_user = array(
+            "username" => escape($username),
+            "password" => escape($password)
+        );
 
-    $query = sprintf("INSERT INTO %s (%s) values (%s)", "user",
-        implode(", ", array_keys($new_user)),
-        ":" . implode(", :", array_keys($new_user)));
+        $query = sprintf("INSERT INTO %s (%s) values (%s)", "user",
+            implode(", ", array_keys($new_user)),
+            ":" . implode(", :", array_keys($new_user)));
 
-    $statement = $pdo->prepare($query);
-    $statement->execute($new_user);
+        $statement = $pdo->prepare($query);
+        $statement->execute($new_user);
+        $success = true;
+    }
+
+    return $success;
 }
 
 function delete_user($username)

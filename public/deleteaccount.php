@@ -23,6 +23,10 @@
 
     <h2><br>Delete account</h2><br>
 
+    <?php
+        /*if(something)
+            echo'<span class="error-message">Incorrect password</span>'*/;?>
+
     <h4>Are you sure?<br><br>This operation cannot be undone.</h4><br>
 
     <form action="" method="post" name="createaccount-form" class="form-signin">

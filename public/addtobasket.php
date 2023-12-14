@@ -3,8 +3,10 @@
 
     require '../lib/functions.php';
 
-    if(isset($_POST["addtobasket"])) {
-        addtobasket($_POST["addtobasket"]);
+    if(isset($_POST['addtobasket'])) {
+        if(isset($_POST['quantity']))
+            addtobasket($_POST['addtobasket'], $_POST['quantity']);
+        else addtobasket($_POST['addtobasket']);
     
 ?>
 
