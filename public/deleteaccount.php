@@ -29,7 +29,7 @@
         <button name="deleteaccount" value="confirm" class="button" type="submit">Confirm</button>
     </form>
 
-        <a href="account.php"><button>Back to My Account</button></a>
+        <br><a href="account.php">Back to My Account</a>
 
 
     <?php }?>
