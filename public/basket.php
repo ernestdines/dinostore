@@ -42,7 +42,6 @@
         <?php }} ?>
     </div>
     <p>Total: €<?php echo $basket_total?></p>
-    <a href="checkout.php"><button>Checkout</button></a>
 
     <hr>
 
